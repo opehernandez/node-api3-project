@@ -8,21 +8,21 @@ module.exports = {
   remove,
 };
 
-function get() {
-  return db('posts');
+function get(id) {
+  return db('posts')
+    .where({ id })
 }
 
 function getById(id) {
   return db('posts')
-    .where({ id })
-    .first();
+    .where({'user_id' : id})
 }
 
 function insert(post) {
   return db('posts')
     .insert(post)
     .then(ids => {
-      return getById(ids[0]);
+      return get(ids[0]);
     });
 }
 
